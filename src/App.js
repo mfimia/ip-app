@@ -23,7 +23,6 @@ const App = () => {
       `https://geo.ipify.org/api/v2/country,city,vpn?apiKey=${apiKey}`
     );
     const data = await response.json();
-    console.log(data);
     setIpData(data);
   };
 
