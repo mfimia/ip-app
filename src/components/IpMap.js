@@ -5,7 +5,7 @@ const IpMap = ({ ...ipData }) => {
   const { lat, lng } = location;
 
   return (
-    <Map height={300} width={600} defaultCenter={[lat, lng]} defaultZoom={11}>
+    <Map height={360} defaultCenter={[lat, lng]} defaultZoom={11}>
       <Marker width={50} anchor={[lat, lng]} />
     </Map>
   );

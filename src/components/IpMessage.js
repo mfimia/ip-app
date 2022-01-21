@@ -6,7 +6,7 @@ const IpMessage = ({ ...ipData }) => {
   const { domain, type } = as;
 
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card className="mt-2">
       <Card.Body>
         <Card.Title>{ip}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">

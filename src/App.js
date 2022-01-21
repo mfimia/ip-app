@@ -29,8 +29,8 @@ const App = () => {
   useEffect(() => getData(), []);
 
   return (
-    <Container className="mt-5" fluid>
-      <Row style={{ justifyContent: "center" }}>
+    <Container className="my-5" fluid>
+      <Row className="justify-content-md-center">
         <Col className="text-center" xs={2}>
           <IpButton toggleOpen={toggleOpen} />
           <Collapse in={open}>
@@ -38,17 +38,16 @@ const App = () => {
               <IpMessage {...ipData} />
             </div>
           </Collapse>
-          {ipData.location.lat !== 0 && <IpMap {...ipData} />}
-          <img
-            style={{ width: "32px" }}
-            alt="country flag"
-            src={`https://flagcdn.com/16x12/${countryCode}.png`}
-          />
+        </Col>
+        <Col xs={4}>
+          {countryCode && (
+            <CountryInfo ipCountry={countryCode.toLocaleUpperCase()} />
+          )}
         </Col>
       </Row>
-      {countryCode && (
-        <CountryInfo ipCountry={countryCode.toLocaleUpperCase()} />
-      )}
+      <Row className="mt-4 justify-content-md-center">
+        <Col xs={6}>{ipData.location.lat !== 0 && <IpMap {...ipData} />}</Col>
+      </Row>
     </Container>
   );
 };
