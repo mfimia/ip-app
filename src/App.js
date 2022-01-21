@@ -60,7 +60,7 @@ const App = () => {
               <Container>
                 <Row>
                   <Col className="text-center">
-                    <IpButton toggleOpen={toggleOpen} />
+                    <IpButton {...open} toggleOpen={toggleOpen} />
                     <Collapse in={open}>
                       <div id="ip-message">
                         <IpMessage {...ipData} />
