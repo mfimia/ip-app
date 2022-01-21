@@ -1,8 +1,10 @@
 import { useQuery } from "@apollo/client";
 import { Fragment } from "react";
-import { ListGroup, Spinner } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 import { client, LIST_COUNTRIES } from "../utils/apolloClient";
 import Image from "react-bootstrap/Image";
+import CountryInfoPlaceholder from "./CountryInfoPlaceholder";
+import { listFonts } from "../utils/listFonts";
 
 let userCountry;
 
@@ -12,7 +14,7 @@ const CountryInfo = ({ ipCountry }) => {
   if (loading || error) {
     return (
       <Fragment>
-        {error ? <p>error.message</p> : <Spinner animation="border" />}
+        {error ? <p>error.message</p> : <CountryInfoPlaceholder />}
       </Fragment>
     );
   }
@@ -27,11 +29,11 @@ const CountryInfo = ({ ipCountry }) => {
 
   return (
     <ListGroup>
-      <ListGroup.Item>
+      <ListGroup.Item className="text-dark">
         Country:{" "}
         {
           <ListGroup className="mt-1">
-            <ListGroup.Item>
+            <ListGroup.Item className="text-dark">
               {
                 <Image
                   thumbnail
@@ -39,40 +41,49 @@ const CountryInfo = ({ ipCountry }) => {
                   src={`https://flagcdn.com/16x12/${ipCountry.toLowerCase()}.png`}
                 />
               }{" "}
-              {name} {<i>({native})</i>}{" "}
+              <span style={listFonts}>{name}</span>{" "}
+              {<i style={{ fontFamily: "Roboto Slab" }}>({native})</i>}
             </ListGroup.Item>
           </ListGroup>
         }
       </ListGroup.Item>
-      <ListGroup.Item>
-        Capital:{" "}
+      <ListGroup.Item className="text-dark">
+        Capital:
         {
           <ListGroup className="mt-1">
-            <ListGroup.Item>{capital}</ListGroup.Item>
+            <ListGroup.Item className="text-dark">
+              <span style={listFonts}>{capital}</span>
+            </ListGroup.Item>
           </ListGroup>
         }
       </ListGroup.Item>
-      <ListGroup.Item>
+      <ListGroup.Item className="text-dark">
         Language{languages.length > 1 ? "s" : ""}:{" "}
         <ListGroup className="mt-1">
           {languages.map((lang, index) => (
-            <ListGroup.Item key={index}>{lang.name}</ListGroup.Item>
+            <ListGroup.Item className="text-dark" key={index}>
+              <span style={listFonts}>{lang.name}</span>
+            </ListGroup.Item>
           ))}
         </ListGroup>
       </ListGroup.Item>
-      <ListGroup.Item>
+      <ListGroup.Item className="text-dark">
         Currency:{" "}
         {
           <ListGroup className="mt-1">
-            <ListGroup.Item>{currency}</ListGroup.Item>
+            <ListGroup.Item className="text-dark">
+              <span style={listFonts}>{currency}</span>
+            </ListGroup.Item>
           </ListGroup>
         }
       </ListGroup.Item>
-      <ListGroup.Item>
+      <ListGroup.Item className="text-dark">
         Code:{" "}
         {
           <ListGroup className="mt-1">
-            <ListGroup.Item>{emoji}</ListGroup.Item>
+            <ListGroup.Item className="text-dark">
+              <span style={listFonts}>{emoji}</span>
+            </ListGroup.Item>
           </ListGroup>
         }
       </ListGroup.Item>

@@ -30,17 +30,19 @@ const App = () => {
   useEffect(() => getData(), []);
 
   return (
-    <Container className="mt-4" fluid>
+    <Container style={{ fontFamily: "Roboto" }} className="mt-4" fluid>
       <Row className="justify-content-center">
         <Col xs={10} sm={8} xl={7}>
-          <Card>
+          <Card className="bg-dark">
             {ipData.location.lat !== 0 ? (
               <IpMap {...ipData} />
             ) : (
-              <Spinner
-                style={{ position: "absolute", top: "50%", left: "50%" }}
-                animation="border"
-              />
+              <Container style={{ height: "90vh" }}>
+                <Spinner
+                  style={{ position: "absolute", top: "50%", left: "50%" }}
+                  animation="border"
+                />
+              </Container>
             )}
             <Card.Body>
               <Container>
