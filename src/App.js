@@ -42,7 +42,7 @@ const App = () => {
   useEffect(() => getData(), []);
 
   return (
-    <Container style={{ fontFamily: "Roboto" }} className="mt-4" fluid>
+    <Container style={{ fontFamily: "Roboto" }} className="mt-4 mb-2" fluid>
       <Row className="justify-content-center">
         <Col xs={10} sm={8} xl={7} xxl={5}>
           <Card className="bg-light">
@@ -67,7 +67,7 @@ const App = () => {
                       </div>
                     </Collapse>
                     <Row className="mt-4 justify-content-center">
-                      <Col xs={6}>
+                      <Col xs={"auto"}>
                         <Card>
                           <Card.Body>
                             {hour.toString().length === 1 && "0"}
