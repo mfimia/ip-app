@@ -9,6 +9,7 @@ import Col from "react-bootstrap/Col";
 import { emptyData } from "./utils/emptyIpData";
 import IpMap from "./components/IpMap";
 import CountryInfo from "./components/CountryInfo";
+import { Card, Spinner } from "react-bootstrap";
 
 const App = () => {
   const [ipData, setIpData] = useState(emptyData);
@@ -29,24 +30,41 @@ const App = () => {
   useEffect(() => getData(), []);
 
   return (
-    <Container className="my-5" fluid>
-      <Row className="justify-content-md-center">
-        <Col className="text-center" xs={2}>
-          <IpButton toggleOpen={toggleOpen} />
-          <Collapse in={open}>
-            <div id="ip-message">
-              <IpMessage {...ipData} />
-            </div>
-          </Collapse>
+    <Container className="mt-4" fluid>
+      <Row className="justify-content-center">
+        <Col xs={10} sm={8} xl={7}>
+          <Card>
+            {ipData.location.lat !== 0 ? (
+              <IpMap {...ipData} />
+            ) : (
+              <Spinner
+                style={{ position: "absolute", top: "50%", left: "50%" }}
+                animation="border"
+              />
+            )}
+            <Card.Body>
+              <Container>
+                <Row>
+                  <Col className="text-center">
+                    <IpButton toggleOpen={toggleOpen} />
+                    <Collapse in={open}>
+                      <div id="ip-message">
+                        <IpMessage {...ipData} />
+                      </div>
+                    </Collapse>
+                  </Col>
+                  <Col>
+                    {countryCode && (
+                      <CountryInfo
+                        ipCountry={countryCode.toLocaleUpperCase()}
+                      />
+                    )}
+                  </Col>
+                </Row>
+              </Container>
+            </Card.Body>
+          </Card>
         </Col>
-        <Col xs={4}>
-          {countryCode && (
-            <CountryInfo ipCountry={countryCode.toLocaleUpperCase()} />
-          )}
-        </Col>
-      </Row>
-      <Row className="mt-4 justify-content-md-center">
-        <Col xs={6}>{ipData.location.lat !== 0 && <IpMap {...ipData} />}</Col>
       </Row>
     </Container>
   );
