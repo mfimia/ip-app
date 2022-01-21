@@ -10,10 +10,22 @@ import { emptyData } from "./utils/emptyIpData";
 import IpMap from "./components/IpMap";
 import CountryInfo from "./components/CountryInfo";
 import { Card, Spinner } from "react-bootstrap";
+import { DateTime } from "luxon";
 
 const App = () => {
   const [ipData, setIpData] = useState(emptyData);
   const [open, setOpen] = useState(false);
+  const [time, setTime] = useState(DateTime.now());
+
+  useEffect(() => {
+    const updateTime = () => setTime(DateTime.now());
+    setInterval(() => updateTime(), 1000);
+
+    return () => clearInterval(updateTime);
+  }, []);
+
+  const { c } = time;
+  const { hour, minute, second } = c;
 
   const countryCode = ipData.location.country.toLocaleLowerCase();
 
@@ -21,7 +33,7 @@ const App = () => {
 
   const getData = async () => {
     const response = await fetch(
-      `https://geo.ipify.org/api/v2/country,city,vpn?apiKey=${apiKey}`
+      `https://geo.ipify.org/api/v2/country,city?apiKey=${apiKey}`
     );
     const data = await response.json();
     setIpData(data);
@@ -32,8 +44,8 @@ const App = () => {
   return (
     <Container style={{ fontFamily: "Roboto" }} className="mt-4" fluid>
       <Row className="justify-content-center">
-        <Col xs={10} sm={8} xl={7}>
-          <Card className="bg-dark">
+        <Col xs={10} sm={8} xl={7} xxl={5}>
+          <Card className="bg-light">
             {ipData.location.lat !== 0 ? (
               <IpMap {...ipData} />
             ) : (
@@ -54,6 +66,18 @@ const App = () => {
                         <IpMessage {...ipData} />
                       </div>
                     </Collapse>
+                    <Row className="mt-4 justify-content-center">
+                      <Col xs={6}>
+                        <Card>
+                          <Card.Body>
+                            {hour.toString().length === 1 && "0"}
+                            {hour} : {minute.toString().length === 1 && "0"}
+                            {minute} : {second.toString().length === 1 && "0"}
+                            {second}
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    </Row>
                   </Col>
                   <Col>
                     {countryCode && (
